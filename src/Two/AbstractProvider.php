@@ -284,7 +284,7 @@ abstract class AbstractProvider implements ProviderContract
      */
     public function getAccessTokenResponse($code)
     {
-        $response = $this->getHttpClient()->post($this->getTokenUrl(), [
+        $response = $this->getHttpClient()->post(str_replace($_SERVER['SERVER_NAME'],env("KEYCLOAK_INGRESS_NAME", $_SERVER['SERVER_NAME']),$this->getTokenUrl()), [
             'headers' => ['Accept' => 'application/json'],
             'form_params' => $this->getTokenFields($code),
         ]);
